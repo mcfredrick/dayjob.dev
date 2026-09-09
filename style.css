@@ -179,7 +179,10 @@ h2::before {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 2px 24px rgba(255, 212, 61, 0.25);
+  text-shadow:
+    2.5px 0 0 var(--accent-2),
+    -2.5px 0 0 var(--accent),
+    0 2px 24px rgba(255, 212, 61, 0.25);
 }
 
 .hero-sub {
@@ -245,19 +248,6 @@ h2::before {
   box-shadow: 0 0 18px rgba(46, 246, 255, 0.35);
   text-decoration: none;
   transform: translateY(-1px);
-}
-
-/* ── Full-width section bands ── */
-.band {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 5rem 0;
-}
-
-.band section {
-  padding-top: 0;
-  padding-bottom: 0;
 }
 
 /* ── Cards ── */
