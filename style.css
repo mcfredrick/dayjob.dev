@@ -162,8 +162,8 @@ h2::before {
 }
 
 .hero-photo {
-  flex: 0 0 260px;
-  width: 260px;
+  flex: 0 0 160px;
+  width: 160px;
 }
 
 .vhs-label {
@@ -221,7 +221,7 @@ h2::before {
   }
 
   .hero-photo {
-    width: 200px;
+    width: 130px;
     flex: 0 0 auto;
   }
 }
