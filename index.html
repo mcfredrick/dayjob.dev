@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DayJobDevelopment LLC — Software Consulting &amp; SaaS</title>
+  <title>Matthew Fredrick — Audio, Video &amp; Real-Time Systems Engineer</title>
   <meta name="description"
-    content="DayJobDevelopment LLC provides software development consulting and builds SaaS products." />
+    content="Software engineer specializing in real-time audio and video systems — from Cisco Webex's video pipelines to JUCE audio plugins and independent DSP/ML projects. Consulting through DayJobDevelopment LLC." />
   <link rel="stylesheet" href="style.css" />
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://traffic.dayjob.dev/js/pa-0WEEFyMQQ3X8X7swMifAi.js"></script>
@@ -34,11 +34,15 @@
 
     <!-- Hero -->
     <section class="hero">
-      <div class="hero-tag">DayJobDevelopment LLC</div>
-      <h1>Software consulting and SaaS, built to last.</h1>
-      <p>We help teams ship reliable software and build products people actually use — from architecture reviews to full
-        product development.</p>
-      <a href="#contact" class="btn">get in touch →</a>
+      <div class="hero-tag">Matthew Fredrick — Software Engineer</div>
+      <h1>Real-time audio &amp; video systems — from Webex to the DAW.</h1>
+      <p>I build the software behind sound and picture: computer-vision video pipelines at Cisco Webex, audio plugins
+        and DSP at BandLab and in JUCE, and independent audio/ML tools through DayJobDevelopment LLC.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn">see the work →</a>
+        <a href="https://github.com/mcfredrick" target="_blank" rel="noopener noreferrer" class="btn-ghost">GitHub</a>
+        <a href="https://linkedin.com/in/mattcfredrick" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
+      </div>
     </section>
 
     <!-- Services -->
@@ -67,29 +71,25 @@
     <!-- Work -->
     <section id="work">
       <h2>Work</h2>
-      <p class="section-sub">Products and sites built and operated by DayJobDevelopment LLC.</p>
-      <div class="cards">
+      <p class="section-sub">Audio and video projects, picked because they're finished enough to show — not everything I've shipped.</p>
+      <div class="cards cards-media">
         <div class="card">
-          <div class="card-label">productivity</div>
+          <div class="card-media card-media-pad"><img src="assets/pitchzazz-mark.svg" alt="pitchzazz mark" loading="lazy" /></div>
+          <div class="card-label">audio plugin · JUCE / Rust</div>
+          <h3><a href="https://mcfredrick.github.io/pitchzazz" target="_blank" rel="noopener noreferrer">pitchzazz</a></h3>
+          <p>Real-time pitch correction ("autotune") with a Rust CLI and a C++/JUCE plugin sharing the same DSP design. Three pitch-shift engines hot-swap live with zero audio dropout. The linked notebook walks every mechanism down to the source line.</p>
+        </div>
+        <div class="card">
+          <div class="card-media"><img src="assets/radiostar-banner.jpg" alt="radiostar-killer: a camera firing a laser at a boombox, synthwave style" loading="lazy" /></div>
+          <div class="card-label">audio + video · in progress</div>
+          <h3><a href="https://radiostar-killer.pages.dev" target="_blank" rel="noopener noreferrer">radiostar-killer</a></h3>
+          <p>Automatic beat-synced music video generator — real-time beat detection and video composition running entirely client-side via WebAssembly and the WebCodecs API. No server, no upload. Actively evolving.</p>
+        </div>
+        <div class="card">
+          <div class="card-media card-media-pad"><img src="assets/noogat-logo.png" alt="noogat logo" loading="lazy" /></div>
+          <div class="card-label">voice + AI · iOS</div>
           <h3><a href="https://noogat.app" target="_blank" rel="noopener noreferrer">noogat.app</a></h3>
           <p>Voice notes that organize themselves. Say "Hey Siri, I have a Noogat" and your thought is saved instantly — no unlocking, no app switching. AI auto-tagging and semantic search so you can always find it again.</p>
-        </div>
-        <div class="card">
-          <div class="card-label">gaming</div>
-          <h3><a href="https://all.crap.games" target="_blank" rel="noopener noreferrer">crap.games</a></h3>
-          <p>A collection of small, deliberately unpretentious games. No in-app purchases, no dark patterns — just
-            games.</p>
-        </div>
-        <div class="card">
-          <div class="card-label">blog</div>
-          <h3><a href="https://tenkai.blog" target="_blank" rel="noopener noreferrer">tenkai.blog</a></h3>
-          <p>Personal writing on software, building, and the broader tech landscape.</p>
-        </div>
-        <div class="card">
-          <div class="card-label">blog · climate tech</div>
-          <h3><a href="https://mcfredrick.github.io/terra" target="_blank" rel="noopener noreferrer">terra</a></h3>
-          <p>Writing on sustainability, climate technology, and the intersection of software and environmental impact.
-          </p>
         </div>
       </div>
     </section>
@@ -108,7 +108,7 @@
     <nav>
       <a href="privacy.html">privacy policy</a>
       <a href="terms.html">terms &amp; refund policy</a>
-      <a href="https://mcfredrick.github.io" target="_blank" rel="noopener noreferrer">portfolio</a>
+      <a href="https://github.com/mcfredrick" target="_blank" rel="noopener noreferrer">github</a>
     </nav>
   </footer>
 
