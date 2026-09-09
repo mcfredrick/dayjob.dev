@@ -150,6 +150,82 @@ h2::before {
   border-bottom: 1px solid var(--border);
 }
 
+.hero-grid {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.hero-copy {
+  flex: 1 1 480px;
+  min-width: 0;
+}
+
+.hero-photo {
+  flex: 0 0 260px;
+  width: 260px;
+}
+
+.vhs-label {
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 6px rgba(255, 46, 154, 0.45);
+}
+
+.vhs-frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--accent-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(46, 246, 255, 0.2);
+}
+
+.vhs-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: url(#vhsAberration) contrast(1.08) saturate(1.15);
+}
+
+.vhs-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.3) 0px,
+      rgba(0, 0, 0, 0.3) 1px,
+      transparent 1px,
+      transparent 3px);
+  mix-blend-mode: overlay;
+}
+
+.vhs-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+@media (max-width: 760px) {
+  .hero-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .hero-photo {
+    width: 200px;
+    flex: 0 0 auto;
+  }
+}
+
 .hero-tag {
   font-family: var(--pixel);
   font-size: 0.6rem;
@@ -180,9 +256,9 @@ h2::before {
   background-clip: text;
   color: transparent;
   text-shadow:
-    2.5px 0 0 var(--accent-2),
-    -2.5px 0 0 var(--accent),
-    0 2px 24px rgba(255, 212, 61, 0.25);
+    1.5px 0 1px rgba(46, 246, 255, 0.6),
+    -1.5px 0 1px rgba(255, 46, 154, 0.6),
+    0 2px 20px rgba(255, 212, 61, 0.25);
 }
 
 .hero-sub {

@@ -23,6 +23,21 @@
 
 <body>
 
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="vhsAberration" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
+      <feOffset in="r" dx="-3" dy="0" result="rOffset" />
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g" />
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b" />
+      <feOffset in="b" dx="3" dy="0" result="bOffset" />
+      <feBlend in="rOffset" in2="g" mode="screen" result="rg" />
+      <feBlend in="rg" in2="bOffset" mode="screen" />
+    </filter>
+  </svg>
+
   <header>
     <nav>
       <div class="logo"><span class="accent">dayjob</span>.dev</div>
@@ -37,14 +52,24 @@
 
     <!-- Hero -->
     <section class="hero">
-      <div class="hero-tag">Matthew Fredrick — Software Engineer</div>
-      <h1 class="pixel-title">Real-time audio<br />&amp; video systems</h1>
-      <div class="hero-sub">◆ FROM CISCO WEBEX TO THE DAW ◆</div>
-      <p>I build the software behind sound and picture: computer-vision video pipelines at Cisco Webex, audio plugins
-        and DSP at BandLab and in JUCE, and independent audio/ML tools through DayJobDevelopment LLC.</p>
-      <div class="hero-actions">
-        <a href="https://github.com/mcfredrick" target="_blank" rel="noopener noreferrer" class="btn-ghost">GitHub</a>
-        <a href="https://linkedin.com/in/mattcfredrick" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="hero-tag">Matthew Fredrick — Software Engineer</div>
+          <h1 class="pixel-title">Real-time audio<br />&amp; video systems</h1>
+          <div class="hero-sub">◆ FROM CISCO WEBEX TO THE DAW ◆</div>
+          <p>I build the software behind sound and picture: computer-vision video pipelines at Cisco Webex, audio plugins
+            and DSP at BandLab and in JUCE, and independent audio/ML tools through DayJobDevelopment LLC.</p>
+          <div class="hero-actions">
+            <a href="https://github.com/mcfredrick" target="_blank" rel="noopener noreferrer" class="btn-ghost">GitHub</a>
+            <a href="https://linkedin.com/in/mattcfredrick" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <div class="vhs-label">▸ REC ● MATT.PNG</div>
+          <div class="vhs-frame">
+            <img src="assets/profile.jpg" alt="Matthew Fredrick" />
+          </div>
+        </div>
       </div>
     </section>
 
