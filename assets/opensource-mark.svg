@@ -1,0 +1,12 @@
+<svg viewBox="0 0 200 220" width="260" height="286" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="open source crates mark">
+  <defs>
+    <linearGradient id="osGrad" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#FFA95C"/>
+      <stop offset="1" stop-color="#CE422B"/>
+    </linearGradient>
+  </defs>
+  <text x="103" y="150" font-family="Georgia, serif" font-weight="700" font-size="130" text-anchor="middle" fill="#3D1F14">rs</text>
+  <text x="97" y="143" font-family="Georgia, serif" font-weight="700" font-size="130" text-anchor="middle" fill="url(#osGrad)">rs</text>
+  <ellipse cx="60" cy="75" rx="14" ry="8" fill="#fff" opacity="0.4"/>
+  <path d="M35 190 Q60 165 85 190 T135 190 T165 175" fill="none" stroke="#22C6D6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
