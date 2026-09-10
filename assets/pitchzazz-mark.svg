@@ -1,11 +1,11 @@
 <svg viewBox="0 0 200 220" width="260" height="286" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="pitchzazz mark">
   <defs>
     <linearGradient id="pzGrad" x1="0" y1="0" x2="0.2" y2="1">
-      <stop offset="0" stop-color="#FF7A9C"/>
-      <stop offset="1" stop-color="#FF9A3D"/>
+      <stop offset="0" stop-color="#C77DFF"/>
+      <stop offset="1" stop-color="#7B2FF7"/>
     </linearGradient>
   </defs>
-  <text x="103" y="150" font-family="Georgia, serif" font-weight="700" font-size="180" text-anchor="middle" fill="#7A2E3E">P</text>
+  <text x="103" y="150" font-family="Georgia, serif" font-weight="700" font-size="180" text-anchor="middle" fill="#341A54">P</text>
   <text x="97" y="143" font-family="Georgia, serif" font-weight="700" font-size="180" text-anchor="middle" fill="url(#pzGrad)">P</text>
   <ellipse cx="72" cy="55" rx="16" ry="9" fill="#fff" opacity="0.45"/>
   <path d="M35 190 Q60 165 85 190 T135 190 T165 175" fill="none" stroke="#22C6D6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
