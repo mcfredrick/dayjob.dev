@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Press+Start+2P&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://traffic.dayjob.dev/js/pa-0WEEFyMQQ3X8X7swMifAi.js"></script>
   <script>
@@ -36,6 +36,18 @@
       <feBlend in="rOffset" in2="g" mode="screen" result="rg" />
       <feBlend in="rg" in2="bOffset" mode="screen" />
     </filter>
+    <filter id="vhsAberrationHeavy" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
+      <feOffset in="r" dx="-9" dy="1" result="rOffset" />
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g" />
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b" />
+      <feOffset in="b" dx="9" dy="-1" result="bOffset" />
+      <feBlend in="rOffset" in2="g" mode="screen" result="rg" />
+      <feBlend in="rg" in2="bOffset" mode="screen" />
+    </filter>
   </svg>
 
   <header>
@@ -57,10 +69,28 @@
         <h1 class="pixel-title">Real-time audio<br />&amp; video systems</h1>
         <div class="hero-sub">◆ FROM STREAMING VIDEO TO THE DAW ◆</div>
         <div class="hero-photo">
-          <div class="vhs-frame">
-            <div class="vhs-label">▸ REC ● MATT.PNG</div>
-            <img src="assets/profile.jpg" alt="Matthew Fredrick" />
-          </div>
+          <button type="button" class="crt-bezel" aria-label="Whack the TV to fix a glitch">
+            <div class="vhs-frame">
+              <div class="vhs-label">▸ REC ● MATT.PNG</div>
+              <img src="assets/profile.jpg" alt="Matthew Fredrick" />
+              <canvas class="vhs-fx-static" aria-hidden="true"></canvas>
+              <canvas class="vhs-fx-pixelate" aria-hidden="true"></canvas>
+              <div class="vhs-fx-bars" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="vhs-fx-line" aria-hidden="true"></div>
+              <div class="vhs-fx-flash" aria-hidden="true"></div>
+              <div class="vhs-fx-bling" aria-hidden="true">
+                <span class="spark main"></span>
+                <span class="spark small1"></span>
+                <span class="spark small2"></span>
+              </div>
+            </div>
+            <span class="crt-brand-label">◆ DAYJOB-TV ◆</span>
+            <span class="crt-slap-hand" aria-hidden="true">✋</span>
+            <span class="crt-impact-ring" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="crt-power-btn" aria-label="Power cycle the CRT">⏻</button>
         </div>
         <p>I build multimedia software: computer-vision video pipelines at Cisco Webex, a DAW at BandLab (<a href="https://www.cakewalk.com/next" target="_blank" rel="noopener noreferrer">Cakewalk Next</a>) and audio plugins in JUCE with C++ and Rust, and provide consulting services at DayJobDevelopment LLC.</p>
         <div class="hero-actions">
@@ -119,6 +149,243 @@
       <a href="https://github.com/mcfredrick" target="_blank" rel="noopener noreferrer">github</a>
     </nav>
   </footer>
+
+  <script>
+    (function () {
+      var frame = document.querySelector('.vhs-frame');
+      if (!frame) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var img = frame.querySelector('img');
+      var canvas = frame.querySelector('.vhs-fx-static');
+      var pixelCanvas = frame.querySelector('.vhs-fx-pixelate');
+      var bars = frame.querySelector('.vhs-fx-bars');
+      var flash = frame.querySelector('.vhs-fx-flash');
+      var bling = frame.querySelector('.vhs-fx-bling');
+      var powerBtn = document.querySelector('.crt-power-btn');
+      var bezel = document.querySelector('.crt-bezel');
+      var slapHand = document.querySelector('.crt-slap-hand');
+      var impactRing = document.querySelector('.crt-impact-ring');
+      var ctx = canvas.getContext('2d');
+      canvas.width = 64;
+      canvas.height = 64;
+      var pctx = pixelCanvas.getContext('2d');
+      pixelCanvas.width = 72;
+      pixelCanvas.height = 72;
+
+      var normalSrc = img.getAttribute('src');
+      var alienSrc = 'assets/channel-alien.svg';
+      var channelTimer = null;
+      var busy = false;
+
+      function playClass(el, className, duration) {
+        return new Promise(function (resolve) {
+          el.classList.add(className);
+          setTimeout(function () {
+            el.classList.remove(className);
+            resolve();
+          }, duration);
+        });
+      }
+
+      function playStatic(duration) {
+        return new Promise(function (resolve) {
+          var start = performance.now();
+          canvas.style.opacity = 0.35 + Math.random() * 0.35;
+
+          function draw(now) {
+            var data = ctx.createImageData(canvas.width, canvas.height);
+            for (var i = 0; i < data.data.length; i += 4) {
+              var v = Math.random() * 255;
+              data.data[i] = v;
+              data.data[i + 1] = v;
+              data.data[i + 2] = v;
+              data.data[i + 3] = 255;
+            }
+            ctx.putImageData(data, 0, 0);
+            if (now - start < duration) {
+              requestAnimationFrame(draw);
+            } else {
+              canvas.style.opacity = 0;
+              resolve();
+            }
+          }
+          requestAnimationFrame(draw);
+        });
+      }
+
+      function playBling(duration) {
+        return new Promise(function (resolve) {
+          bling.classList.add('is-active');
+          setTimeout(function () {
+            bling.classList.remove('is-active');
+            resolve();
+          }, duration);
+        });
+      }
+
+      function playPixelate(duration) {
+        return new Promise(function (resolve) {
+          if (!img.complete || !img.naturalWidth) { resolve(); return; }
+
+          // Mipmap-style repeated halving keeps facial detail (glasses,
+          // eyes) legible — a single huge downscale just blurs it to mush.
+          var targetW = pixelCanvas.width;
+          var targetH = pixelCanvas.height;
+          var curW = img.naturalWidth;
+          var curH = img.naturalHeight;
+          var source = img;
+          while (curW / 2 > targetW && curH / 2 > targetH) {
+            var stepW = Math.max(targetW, Math.floor(curW / 2));
+            var stepH = Math.max(targetH, Math.floor(curH / 2));
+            var stepCanvas = document.createElement('canvas');
+            stepCanvas.width = stepW;
+            stepCanvas.height = stepH;
+            var stepCtx = stepCanvas.getContext('2d');
+            stepCtx.imageSmoothingEnabled = true;
+            stepCtx.drawImage(source, 0, 0, stepW, stepH);
+            source = stepCanvas;
+            curW = stepW;
+            curH = stepH;
+          }
+
+          pctx.imageSmoothingEnabled = true;
+          pctx.drawImage(source, 0, 0, targetW, targetH);
+
+          var frameData = pctx.getImageData(0, 0, targetW, targetH);
+          var levels = 6;
+          var step = 255 / (levels - 1);
+          var contrast = 1.2;
+          for (var i = 0; i < frameData.data.length; i += 4) {
+            for (var c = 0; c < 3; c++) {
+              var v = frameData.data[i + c];
+              v = (v - 128) * contrast + 128;
+              v = Math.max(0, Math.min(255, v));
+              v = Math.round(Math.round(v / step) * step);
+              frameData.data[i + c] = v;
+            }
+          }
+          pctx.putImageData(frameData, 0, 0);
+
+          pixelCanvas.classList.add('is-active');
+          setTimeout(function () {
+            pixelCanvas.classList.remove('is-active');
+            resolve();
+          }, duration);
+        });
+      }
+
+      function playBars(duration) {
+        return new Promise(function (resolve) {
+          bars.classList.add('is-active');
+          frame.classList.add('fx-roll');
+          setTimeout(function () {
+            bars.classList.remove('is-active');
+            frame.classList.remove('fx-roll');
+            resolve();
+          }, duration);
+        });
+      }
+
+      function playPowerCycle() {
+        return new Promise(function (resolve) {
+          frame.classList.add('fx-poweroff');
+          flash.style.opacity = 0.8;
+          setTimeout(function () {
+            frame.classList.remove('fx-poweroff');
+            flash.style.opacity = 0;
+          }, 420);
+          setTimeout(function () {
+            frame.classList.add('fx-poweron');
+            flash.style.opacity = 0.9;
+            setTimeout(function () { flash.style.opacity = 0; }, 220);
+            setTimeout(function () {
+              frame.classList.remove('fx-poweron');
+              resolve();
+            }, 480);
+          }, 620);
+        });
+      }
+
+      var glitchEffects = [
+        function () { return playStatic(220 + Math.random() * 180); },
+        function () { return playClass(frame, 'fx-wobble', 500); },
+        function () { return playClass(frame, 'fx-flicker', 600); },
+        function () { return playBars(320 + Math.random() * 140); },
+        function () { return playClass(frame, 'fx-roll', 700); },
+        function () { return playClass(frame, 'fx-chromatic', 350); },
+        function () { return playBling(900); },
+        function () { return playPixelate(700 + Math.random() * 300); }
+      ];
+
+      var effects = glitchEffects.concat([playPowerCycle]);
+
+      // All triggers (ambient, power button, bezel whack) share one lock
+      // so only one effect ever plays at a time.
+      function scheduleNext() {
+        var delay = 10000 + Math.random() * 20000;
+        setTimeout(function () {
+          if (document.hidden || busy) { scheduleNext(); return; }
+          busy = true;
+          var effect = effects[Math.floor(Math.random() * effects.length)];
+          effect().then(function () {
+            busy = false;
+            scheduleNext();
+          });
+        }, delay);
+      }
+
+      scheduleNext();
+
+      // Easter eggs: power button + whack-the-TV bezel
+      if (powerBtn) {
+        powerBtn.addEventListener('click', function () {
+          if (busy) return;
+          busy = true;
+          playPowerCycle().then(function () { busy = false; });
+        });
+      }
+
+      if (bezel) {
+        bezel.addEventListener('click', function (e) {
+          if (busy) return;
+          busy = true;
+
+          var rect = bezel.getBoundingClientRect();
+          var x = (e.clientX || e.clientY) ? e.clientX - rect.left : rect.width / 2;
+          var y = (e.clientX || e.clientY) ? e.clientY - rect.top : rect.height / 2;
+          slapHand.style.left = x + 'px';
+          slapHand.style.top = y + 'px';
+          impactRing.style.left = x + 'px';
+          impactRing.style.top = y + 'px';
+
+          slapHand.classList.add('is-active');
+          setTimeout(function () { slapHand.classList.remove('is-active'); }, 420);
+
+          setTimeout(function () {
+            impactRing.classList.add('is-active');
+            bezel.classList.add('is-jolting');
+            setTimeout(function () {
+              impactRing.classList.remove('is-active');
+              bezel.classList.remove('is-jolting');
+            }, 500);
+
+            var pick = glitchEffects[Math.floor(Math.random() * glitchEffects.length)];
+            var showAlien = Math.random() < 0.18;
+            pick().then(function () {
+              if (!showAlien) { busy = false; return; }
+              clearTimeout(channelTimer);
+              img.setAttribute('src', alienSrc);
+              channelTimer = setTimeout(function () {
+                img.setAttribute('src', normalSrc);
+                playClass(frame, 'fx-roll', 400).then(function () { busy = false; });
+              }, 600 + Math.random() * 400);
+            });
+          }, 230);
+        });
+      }
+    })();
+  </script>
 
 </body>
 
